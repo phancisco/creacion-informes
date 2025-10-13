@@ -1,0 +1,69 @@
+{% extends 'admin_panel/base.html' %}
+
+{% block title %}Dashboard - {{ block.super }}{% endblock %}
+
+{% block content %}
+<h2>Dashboard Principal</h2>
+
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+    
+
+    <div class="card">
+        <h3>Estadísticas del Sistema</h3>
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; text-align: center;">
+            <div>
+                <div style="font-size: 2em; color: #dc2626; font-weight: bold;">{{ total_informes }}</div>
+                <div>Informes Totales</div>
+            </div>
+            <div>
+                <div style="font-size: 2em; color: #dc2626; font-weight: bold;">{{ usuarios_activos }}</div>
+                <div>Usuarios Activos</div>
+            </div>
+            <div>
+                <div style="font-size: 2em; color: #dc2626; font-weight: bold;">{{ solicitudes_pendientes }}</div>
+                <div>Solicitudes Pendientes</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <h3>Gestión de Usuarios</h3>
+        <p>Administrar usuarios del sistema</p>
+        <a href="{% url 'usuarios_lista' %}" class="btn">Ver Usuarios</a>
+        <a href="/admin/auth/user/add/" class="btn btn-secondary">Crear Usuario</a>
+    </div>
+
+
+    <div class="card">
+        <h3>Parámetros de Informes</h3>
+        <p>Configurar controles de calidad</p>
+        <a href="{% url 'parametros_configuracion' %}" class="btn">Configurar Parámetros</a>
+    </div>
+
+
+    <div class="card">
+        <h3>Solicitudes de Cambio</h3>
+        {% if solicitudes_pendientes > 0 %}
+            <div class="alert alert-warning">
+                <strong>{{ solicitudes_pendientes }} solicitudes pendientes</strong> de aprobación
+            </div>
+        {% endif %}
+        <a href="{% url 'solicitudes_cambio' %}" class="btn">Gestionar Solicitudes</a>
+    </div>
+
+
+    <div class="card">
+        <h3>Monitoreo de Informes</h3>
+        <p>Supervisar informes en tiempo real</p>
+        <a href="{% url 'monitoreo_informes' %}" class="btn">Ver Monitoreo</a>
+        <a href="{% url 'auditoria_completa' %}" class="btn btn-secondary">Auditoría</a>
+    </div>
+
+
+    <div class="card">
+        <h3>Administración PDF</h3>
+        <p>Gestionar importación de archivos</p>
+        <a href="/admin/" class="btn btn-secondary">Configurar</a>
+    </div>
+</div>
+{% endblock %}

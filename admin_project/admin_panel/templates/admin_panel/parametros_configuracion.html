@@ -1,0 +1,61 @@
+{% extends 'admin_panel/base.html' %}
+
+{% block title %}Configuración de Parámetros - {{ block.super }}{% endblock %}
+
+{% block content %}
+<h2>Gestión Avanzada de Parámetros de Informes</h2>
+
+<div class="card">
+    <h3>Parámetros Obligatorios</h3>
+    <div class="alert alert-info">
+        Los parámetros obligatorios no pueden ser eliminados y son requeridos en todos los informes.
+    </div>
+    
+    {% for parametro in parametros_obligatorios %}
+    <div style="padding: 15px; margin: 10px 0; background: #f9fafb; border-radius: 8px; border-left: 4px solid #059669;">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+            <div style="flex: 1;">
+                <strong>{{ parametro.numero }}.</strong> {{ parametro.descripcion }}
+            </div>
+            <div>
+                <span class="badge badge-success">Obligatorio</span>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<div class="card">
+    <h3>Parámetros Opcionales</h3>
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+        <div class="alert alert-info" style="flex: 1; margin-right: 20px;">
+            Los parámetros opcionales pueden ser activados/desactivados según las necesidades del taller.
+        </div>
+        <a href="/admin/admin_panel/parametroopcional/add/" class="btn">Agregar Parámetro</a>
+    </div>
+    
+    {% for parametro in parametros_opcionales %}
+    <div style="padding: 15px; margin: 10px 0; background: #f9fafb; border-radius: 8px; border-left: 4px solid #dc2626;">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+            <div style="flex: 1;">
+                {{ parametro.descripcion }}
+                <div style="font-size: 12px; color: #666; margin-top: 5px;">
+                    Creado por: {{ parametro.creado_por.get_full_name|default:parametro.creado_por.username }} 
+                    el {{ parametro.fecha_creacion|date:"d/m/Y" }}
+                </div>
+            </div>
+            <div>
+                {% if parametro.activo %}
+                    <span class="badge badge-success">Activo</span>
+                {% else %}
+                    <span class="badge badge-warning">Inactivo</span>
+                {% endif %}
+                <a href="/admin/admin_panel/parametroopcional/{{ parametro.id }}/change/" class="btn btn-secondary" style="padding: 5px 10px;">Editar</a>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <p>No hay parámetros opcionales configurados.</p>
+    {% endfor %}
+</div>
+{% endblock %}

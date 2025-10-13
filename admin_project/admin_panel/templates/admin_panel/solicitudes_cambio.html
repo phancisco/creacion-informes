@@ -1,0 +1,61 @@
+{% extends 'admin_panel/base.html' %}
+
+{% block title %}Solicitudes de Cambio - {{ block.super }}{% endblock %}
+
+{% block content %}
+<h2>Gestión de Solicitudes de Cambio</h2>
+
+<div class="card">
+    <h3>Solicitudes Pendientes de Aprobación</h3>
+    
+    {% if solicitudes %}
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Usuario</th>
+                    <th>Tipo</th>
+                    <th>Descripción</th>
+                    <th>Fecha</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for solicitud in solicitudes %}
+                <tr>
+                    <td>{{ solicitud.usuario_solicitante.get_full_name|default:solicitud.usuario_solicitante.username }}</td>
+                    <td>{{ solicitud.get_tipo_display }}</td>
+                    <td>{{ solicitud.descripcion|truncatechars:100 }}</td>
+                    <td>{{ solicitud.fecha_solicitud|date:"d/m/Y H:i" }}</td>
+                    <td><span class="badge badge-warning">{{ solicitud.get_estado_display }}</span></td>
+                    <td>
+                        <form method="post" action="{% url 'aprobar_solicitud' solicitud.id %}" style="display: inline;">
+                            {% csrf_token %}
+                            <input type="hidden" name="accion" value="aprobar">
+                            <button type="submit" class="btn" style="padding: 5px 10px;">Aprobar</button>
+                        </form>
+                        <form method="post" action="{% url 'aprobar_solicitud' solicitud.id %}" style="display: inline;">
+                            {% csrf_token %}
+                            <input type="hidden" name="accion" value="rechazar">
+                            <button type="submit" class="btn btn-danger" style="padding: 5px 10px;">Rechazar</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <div class="alert alert-info">
+            No hay solicitudes pendientes de aprobación.
+        </div>
+    {% endif %}
+</div>
+
+<div class="card">
+    <h3>Crear Nueva Solicitud (Demo)</h3>
+    <div class="alert alert-info">
+        En el sistema real, los usuarios crearían solicitudes desde la aplicación móvil.
+    </div>
+    <a href="/admin/admin_panel/solicitudcambio/add/" class="btn">Crear Solicitud de Prueba</a>
+</div>
+{% endblock %}

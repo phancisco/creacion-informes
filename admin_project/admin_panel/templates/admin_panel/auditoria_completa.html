@@ -1,0 +1,76 @@
+{% extends 'admin_panel/base.html' %}
+
+{% block title %}Auditoría Completa - {{ block.super }}{% endblock %}
+
+{% block content %}
+<h2>Historial Completo y Auditoría de Informes</h2>
+
+<div class="card">
+    <h3>Registro de Cambios y Modificaciones</h3>
+    <div class="alert alert-info">
+        Rastreo detallado de todos los cambios realizados en el sistema para auditorías completas.
+    </div>
+    
+    {% if cambios_recientes %}
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Fecha</th>
+                    <th>Usuario</th>
+                    <th>Tipo de Cambio</th>
+                    <th>Descripción</th>
+                    <th>Estado</th>
+                    <th>Aprobado Por</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for cambio in cambios_recientes %}
+                <tr>
+                    <td>{{ cambio.fecha_solicitud|date:"d/m/Y H:i" }}</td>
+                    <td>{{ cambio.usuario_solicitante.get_full_name|default:cambio.usuario_solicitante.username }}</td>
+                    <td>{{ cambio.get_tipo_display }}</td>
+                    <td>{{ cambio.descripcion|truncatechars:80 }}</td>
+                    <td>
+                        {% if cambio.estado == 'aprobada' %}
+                            <span class="badge badge-success">{{ cambio.get_estado_display }}</span>
+                        {% elif cambio.estado == 'rechazada' %}
+                            <span class="badge badge-danger">{{ cambio.get_estado_display }}</span>
+                        {% else %}
+                            <span class="badge badge-warning">{{ cambio.get_estado_display }}</span>
+                        {% endif %}
+                    </td>
+                    <td>{{ cambio.aprobado_por.get_full_name|default:cambio.aprobado_por.username|default:"--" }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <div class="alert alert-info">
+            No hay registros de cambios en el sistema.
+        </div>
+    {% endif %}
+</div>
+
+<div class="card">
+    <h3>Generar Reportes de Auditoría</h3>
+    <p>Opciones para generar reportes detallados por período, usuario o tipo de cambio.</p>
+    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+        <a href="/admin/admin_panel/solicitudcambio/" class="btn">Ver Todas las Solicitudes</a>
+        <a href="/admin/admin_panel/informe/" class="btn btn-secondary">Ver Todos los Informes</a>
+        <a href="/admin/auth/user/" class="btn btn-secondary">Ver Actividad de Usuarios</a>
+    </div>
+</div>
+
+<div class="card">
+    <h3>Políticas de Retención</h3>
+    <div class="alert alert-warning">
+        <strong>Configuración Actual:</strong>
+        <ul style="margin: 10px 0;">
+            <li>Informes: Retención permanente</li>
+            <li>Logs de auditoría: 2 años</li>
+            <li>Solicitudes de cambio: 1 año</li>
+            <li>Respaldos automáticos: Cada 24 horas</li>
+        </ul>
+    </div>
+</div>
+{% endblock %}
