@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainMenu">
+    <TextView
+        android:id="@+id/TextLogin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/logout"
+        android:textSize="20sp"
+        android:textColor="#214e8a"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:paddingVertical="20dp"
+        android:clickable="true"
+        android:focusable="true"/>
+    <ImageView
+        android:id="@+id/LogoMainMenu"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:src="@drawable/logo_power"
+        android:layout_marginVertical="20dp"
+        android:contentDescription="@string/ContentDescriptionLogo"/>
+    <LinearLayout
+        android:id="@+id/SectionInputLogin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingHorizontal="50dp"
+        android:paddingTop="20dp">
+        <Button
+            android:id="@+id/CreateReport"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="#FF0000"
+            android:text="@string/CreateReport"
+            android:textColor="@color/white"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginVertical="20dp"
+            android:background="@android:color/black" />
+        <Button
+            android:id="@+id/HistoryReport"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="#FF0000"
+            android:text="@string/HistoryReport"
+            android:textColor="@color/white"/>
+    </LinearLayout>
+
+</LinearLayout>

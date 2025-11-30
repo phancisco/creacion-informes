@@ -12,13 +12,14 @@
         android:layout_width="wrap_content"
         android:layout_height="150dp"
         android:src="@drawable/logo_power"
-        android:layout_marginVertical="20dp"/>
+        android:layout_marginVertical="20dp"
+        android:contentDescription="@string/ContentDescriptionLogo"/>
     <TextView
         android:id="@+id/TitleApp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="C.D.I PTT"
-        android:textSize="35dp"
+        android:text="@string/TitleApp"
+        android:textSize="35sp"
         android:textColor="@color/black"
         android:textStyle="bold"
         android:gravity="center"/>
@@ -26,12 +27,12 @@
         android:id="@+id/TextLogin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Iniciar Sesión"
-        android:textSize="20dp"
+        android:text="@string/login"
+        android:textSize="20sp"
         android:textColor="@color/black"
         android:textStyle="bold"
         android:gravity="center"
-        android:paddingTop="20dp"/>
+        android:paddingTop="20dp" />
     <LinearLayout
         android:id="@+id/SectionInputLogin"
         android:layout_width="match_parent"
@@ -43,18 +44,18 @@
             android:id="@+id/InputRut"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Rut del trabajador"/>
+            android:hint="@string/RUT"/>
         <EditText
             android:id="@+id/InputPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Ingrese Contraseña"/>
+            android:hint="@string/password"/>
         <Button
             android:id="@+id/ButtonLogin"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:background="#FF0000"
-            android:text="Iniciar sesión"
+            android:text="@string/login"
             android:textColor="@color/white"
             android:layout_marginTop="20dp"/>
     </LinearLayout>

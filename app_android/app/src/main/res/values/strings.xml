@@ -1,3 +1,13 @@
 <resources>
+    <!--Activity Main, Inicio de sesión -->
     <string name="app_name">Creacion Informes</string>
+    <string name="TitleApp">C.D.I PTT</string>
+    <string name="login">Iniciar Sesión</string>
+    <string name="RUT">Rut del trabajador</string>
+    <string name="password">Ingrese Contraseña</string>
+    <string name="logout">Cerrar sesión</string>
+    <string name="ContentDescriptionLogo">logo de la empresa</string>
+    <string name="CreateReport">Crear Informe</string>
+    <string name="HistoryReport">Ver Historial</string>
+
 </resources>
