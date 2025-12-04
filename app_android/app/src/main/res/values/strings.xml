@@ -9,5 +9,6 @@
     <string name="ContentDescriptionLogo">logo de la empresa</string>
     <string name="CreateReport">Crear Informe</string>
     <string name="HistoryReport">Ver Historial</string>
+    <string name="titleCreacionInforme">Creación de informe</string>
 
 </resources>
