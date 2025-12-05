@@ -12,6 +12,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CreacionInformes">
         <activity
+            android:name=".HistoryActivity"
+            android:exported="false"
+            android:theme="@style/Theme.CreacionInformes" />
+        <activity
+            android:name=".NotificacionActivity"
+            android:exported="false" />
+        <activity
+            android:name=".FinishInforme"
+            android:exported="false" />
+        <activity
             android:name=".ui.theme.ParametroActivity"
             android:exported="false" />
         <activity
