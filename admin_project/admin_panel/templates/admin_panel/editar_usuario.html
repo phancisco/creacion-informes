@@ -1,0 +1,70 @@
+{% extends 'admin_panel/base.html' %}
+
+{% block title %}Editar Usuario{% endblock %}
+
+{% block content %}
+<h2>Editar Usuario</h2>
+
+<div class="card">
+    <form method="post">
+        {% csrf_token %}
+        
+        <div class="form-group">
+            <label class="form-label">Nombre de Usuario *</label>
+            <input type="text" name="username" class="form-control" value="{{ perfil.usuario.username }}" required>
+        </div>
+        
+        <div class="form-group">
+            <label class="form-label">Nueva Contraseña (dejar en blanco para no cambiar)</label>
+            <input type="password" name="password" class="form-control">
+        </div>
+        
+        <div class="form-group">
+            <label class="form-label">Correo Electrónico *</label>
+            <input type="email" name="email" class="form-control" value="{{ perfil.usuario.email }}" required>
+        </div>
+        
+        <div class="form-group">
+            <label class="form-label">Nombre</label>
+            <input type="text" name="first_name" class="form-control" value="{{ perfil.usuario.first_name }}">
+        </div>
+        
+        <div class="form-group">
+            <label class="form-label">Apellido</label>
+            <input type="text" name="last_name" class="form-control" value="{{ perfil.usuario.last_name }}">
+        </div>
+        
+        <div class="form-group">
+            <label class="form-label">RUN *</label>
+            <input type="text" name="run" class="form-control" value="{{ perfil.run }}" required>
+        </div>
+        
+        <div class="form-group">
+            <label class="form-label">Teléfono</label>
+            <input type="text" name="telefono" class="form-control" value="{{ perfil.telefono }}">
+        </div>
+        
+        <div class="form-group">
+            <label class="form-label">Rol *</label>
+            <select name="rol" class="form-control" required>
+                <option value="inspector" {% if perfil.rol == 'inspector' %}selected{% endif %}>Inspector de Calidad</option>
+                <option value="jefe" {% if perfil.rol == 'jefe' %}selected{% endif %}>Jefe de Taller</option>
+                <option value="admin" {% if perfil.rol == 'admin' %}selected{% endif %}>Administrador</option>
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <label class="form-label">Taller *</label>
+            <select name="taller" class="form-control" required>
+                <option value="A" {% if perfil.taller == 'A' %}selected{% endif %}>Taller A</option>
+                <option value="B" {% if perfil.taller == 'B' %}selected{% endif %}>Taller B</option>
+            </select>
+        </div>
+        
+        <div style="margin-top: 2rem;">
+            <button type="submit" class="btn">Guardar Cambios</button>
+            <a href="{% url 'usuarios_lista' %}" class="btn btn-secondary">Cancelar</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

@@ -42,7 +42,7 @@
                     <td>{{ informe.fecha_creacion|date:"d/m/Y H:i" }}</td>
                     <td>{{ informe.fecha_creacion|timesince }}</td>
                     <td>
-                        <a href="/admin/admin_panel/informe/{{ informe.id }}/change/" class="btn btn-secondary" style="padding: 5px 10px;">Ver</a>
+                        <span class="badge badge-success" style="padding: 5px 10px;">Informe #{{ informe.id }}</span>
                     </td>
                 </tr>
                 {% endfor %}

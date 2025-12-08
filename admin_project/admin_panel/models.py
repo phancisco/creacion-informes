@@ -16,11 +16,16 @@ class PerfilUsuario(models.Model):
         ('admin', 'Administrador'),
     ]
     
+    TALLERES = [
+        ('A', 'Taller A'),
+        ('B', 'Taller B'),
+    ]
+    
     usuario = models.OneToOneField(User, on_delete=models.CASCADE)
     run = models.CharField(max_length=12, unique=True)
     telefono = models.CharField(max_length=15, blank=True)
     rol = models.CharField(max_length=20, choices=ROLES, default='inspector')
-    taller = models.ForeignKey(Taller, on_delete=models.SET_NULL, null=True, blank=True)
+    taller = models.CharField(max_length=1, choices=TALLERES, default='A')
     
     def __str__(self):
         return f"{self.usuario.get_full_name()} - {self.get_rol_display()}"

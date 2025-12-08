@@ -1,0 +1,35 @@
+{% extends 'admin_panel/base.html' %}
+
+{% block title %}Crear Taller{% endblock %}
+
+{% block content %}
+<h2>Crear Nuevo Taller</h2>
+
+<div class="card">
+    <form method="post">
+        {% csrf_token %}
+        
+        <div class="form-group">
+            <label class="form-label">Nombre del Taller *</label>
+            <input type="text" name="nombre" class="form-control" placeholder="Taller Antofagasta" required>
+        </div>
+        
+        <div class="form-group">
+            <label class="form-label">Ubicación *</label>
+            <input type="text" name="ubicacion" class="form-control" placeholder="Antofagasta, Chile" required>
+        </div>
+        
+        <div class="form-group">
+            <label style="display: flex; align-items: center; gap: 10px;">
+                <input type="checkbox" name="activo" checked>
+                <span>Taller Activo</span>
+            </label>
+        </div>
+        
+        <div style="margin-top: 2rem;">
+            <button type="submit" class="btn">Crear Taller</button>
+            <a href="{% url 'usuarios_lista' %}" class="btn btn-secondary">Cancelar</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

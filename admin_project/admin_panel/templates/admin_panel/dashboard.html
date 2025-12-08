@@ -7,7 +7,7 @@
 
 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
     
-
+    <!-- Estadísticas -->
     <div class="card">
         <h3>Estadísticas del Sistema</h3>
         <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; text-align: center;">
@@ -26,21 +26,22 @@
         </div>
     </div>
 
+    <!-- Gestión de Usuarios -->
     <div class="card">
         <h3>Gestión de Usuarios</h3>
         <p>Administrar usuarios del sistema</p>
         <a href="{% url 'usuarios_lista' %}" class="btn">Ver Usuarios</a>
-        <a href="/admin/auth/user/add/" class="btn btn-secondary">Crear Usuario</a>
+        <a href="{% url 'crear_usuario' %}" class="btn btn-secondary">Crear Usuario</a>
     </div>
 
-
+    <!-- Configuración de Parámetros -->
     <div class="card">
         <h3>Parámetros de Informes</h3>
         <p>Configurar controles de calidad</p>
         <a href="{% url 'parametros_configuracion' %}" class="btn">Configurar Parámetros</a>
     </div>
 
-
+    <!-- Solicitudes de Cambio -->
     <div class="card">
         <h3>Solicitudes de Cambio</h3>
         {% if solicitudes_pendientes > 0 %}
@@ -51,7 +52,7 @@
         <a href="{% url 'solicitudes_cambio' %}" class="btn">Gestionar Solicitudes</a>
     </div>
 
-
+    <!-- Monitoreo -->
     <div class="card">
         <h3>Monitoreo de Informes</h3>
         <p>Supervisar informes en tiempo real</p>
@@ -59,11 +60,11 @@
         <a href="{% url 'auditoria_completa' %}" class="btn btn-secondary">Auditoría</a>
     </div>
 
-
-    <div class="card">
-        <h3>Administración PDF</h3>
-        <p>Gestionar importación de archivos</p>
-        <a href="/admin/" class="btn btn-secondary">Configurar</a>
-    </div>
+    <!-- Administración PDF -->
+<div class="card">
+    <h3>Administración PDF</h3>
+    <p>Gestionar importación de archivos</p>
+    <a href="{% url 'administracion_pdf' %}" class="btn">Configurar PDF</a>
+</div>
 </div>
 {% endblock %}

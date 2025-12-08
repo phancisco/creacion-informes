@@ -55,9 +55,9 @@
     <h3>Generar Reportes de Auditoría</h3>
     <p>Opciones para generar reportes detallados por período, usuario o tipo de cambio.</p>
     <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-        <a href="/admin/admin_panel/solicitudcambio/" class="btn">Ver Todas las Solicitudes</a>
-        <a href="/admin/admin_panel/informe/" class="btn btn-secondary">Ver Todos los Informes</a>
-        <a href="/admin/auth/user/" class="btn btn-secondary">Ver Actividad de Usuarios</a>
+        <a href="{% url 'solicitudes_cambio' %}" class="btn">Ver Todas las Solicitudes</a>
+        <a href="{% url 'monitoreo_informes' %}" class="btn btn-secondary">Ver Todos los Informes</a>
+        <a href="{% url 'usuarios_lista' %}" class="btn btn-secondary">Ver Actividad de Usuarios</a>
     </div>
 </div>
 

@@ -1,0 +1,70 @@
+{% extends 'admin_panel/base.html' %}
+
+{% block title %}Crear Usuario{% endblock %}
+
+{% block content %}
+<h2>Crear Nuevo Usuario</h2>
+
+<div class="card">
+    <form method="post">
+        {% csrf_token %}
+        
+        <div class="form-group">
+            <label class="form-label">Nombre de Usuario *</label>
+            <input type="text" name="username" class="form-control" required>
+        </div>
+        
+        <div class="form-group">
+            <label class="form-label">Contraseña *</label>
+            <input type="password" name="password" class="form-control" required>
+        </div>
+        
+        <div class="form-group">
+            <label class="form-label">Correo Electrónico *</label>
+            <input type="email" name="email" class="form-control" required>
+        </div>
+        
+        <div class="form-group">
+            <label class="form-label">Nombre</label>
+            <input type="text" name="first_name" class="form-control">
+        </div>
+        
+        <div class="form-group">
+            <label class="form-label">Apellido</label>
+            <input type="text" name="last_name" class="form-control">
+        </div>
+        
+        <div class="form-group">
+            <label class="form-label">RUN *</label>
+            <input type="text" name="run" class="form-control" placeholder="12.345.678-9" required>
+        </div>
+        
+        <div class="form-group">
+            <label class="form-label">Teléfono</label>
+            <input type="text" name="telefono" class="form-control" placeholder="+56 9 1234 5678">
+        </div>
+        
+        <div class="form-group">
+            <label class="form-label">Rol *</label>
+            <select name="rol" class="form-control" required>
+                <option value="inspector">Inspector de Calidad</option>
+                <option value="jefe">Jefe de Taller</option>
+                <option value="admin">Administrador</option>
+            </select>
+        </div>
+        
+<div class="form-group">
+    <label class="form-label">Taller *</label>
+    <select name="taller" class="form-control" required>
+        <option value="A">Taller A</option>
+        <option value="B">Taller B</option>
+    </select>
+</div>
+        
+        <div style="margin-top: 2rem;">
+            <button type="submit" class="btn">Crear Usuario</button>
+            <a href="{% url 'usuarios_lista' %}" class="btn btn-secondary">Cancelar</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

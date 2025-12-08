@@ -1,0 +1,30 @@
+{% extends 'admin_panel/base.html' %}
+
+{% block title %}Editar Parámetro Opcional{% endblock %}
+
+{% block content %}
+<h2>Editar Parámetro Opcional</h2>
+
+<div class="card">
+    <form method="post">
+        {% csrf_token %}
+        
+        <div class="form-group">
+            <label class="form-label">Descripción del Parámetro *</label>
+            <textarea name="descripcion" class="form-control" rows="4" required>{{ parametro.descripcion }}</textarea>
+        </div>
+        
+        <div class="form-group">
+            <label style="display: flex; align-items: center; gap: 10px;">
+                <input type="checkbox" name="activo" {% if parametro.activo %}checked{% endif %}>
+                <span>Parámetro Activo</span>
+            </label>
+        </div>
+        
+        <div style="margin-top: 2rem;">
+            <button type="submit" class="btn">Guardar Cambios</button>
+            <a href="{% url 'parametros_configuracion' %}" class="btn btn-secondary">Cancelar</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,81 @@
+{% extends 'admin_panel/base.html' %}
+
+{% block title %}Administración PDF - {{ block.super }}{% endblock %}
+
+{% block content %}
+<h2>Administración de Importación PDF</h2>
+
+<div class="alert alert-info">
+    Esta funcionalidad estará disponible próximamente con integración de API para importación de archivos PDF.
+</div>
+
+<div class="card">
+    <h3>Configuración de Tipos de PDF Permitidos</h3>
+    <p>Configurar qué tipos de archivos PDF pueden ser importados al sistema.</p>
+    <div class="alert alert-warning">
+        <strong>Tipos actualmente configurados:</strong>
+        <ul style="margin: 10px 0;">
+            <li>Informes de liberación (PDF)</li>
+            <li>Certificados de calidad (PDF)</li>
+            <li>Documentos de garantía (PDF)</li>
+        </ul>
+    </div>
+</div>
+
+<div class="card">
+    <h3>Límites de Tamaño y Cantidad</h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Configuración</th>
+                <th>Valor Actual</th>
+                <th>Estado</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Tamaño máximo por archivo</td>
+                <td>10 MB</td>
+                <td><span class="badge badge-success">Activo</span></td>
+            </tr>
+            <tr>
+                <td>Cantidad máxima de archivos por importación</td>
+                <td>5 archivos</td>
+                <td><span class="badge badge-success">Activo</span></td>
+            </tr>
+            <tr>
+                <td>Escaneo de seguridad</td>
+                <td>Habilitado</td>
+                <td><span class="badge badge-success">Activo</span></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="card">
+    <h3>Registro de Importaciones</h3>
+    <div class="alert alert-info">
+        No hay importaciones registradas en el sistema.
+    </div>
+    <p>El registro de importaciones mostrará:</p>
+    <ul>
+        <li>Fecha y hora de importación</li>
+        <li>Usuario que realizó la importación</li>
+        <li>Nombre del archivo importado</li>
+        <li>Estado de la importación (aprobada/rechazada)</li>
+        <li>Tamaño del archivo</li>
+    </ul>
+</div>
+
+<div class="card">
+    <h3>Pre-aprobación de Importaciones</h3>
+    <p>Sistema de aprobación administrativa para importaciones de archivos PDF.</p>
+    <div class="alert alert-warning">
+        <strong>Política actual:</strong> Todas las importaciones requieren aprobación administrativa antes de ser procesadas.
+    </div>
+</div>
+
+<div style="margin-top: 2rem;">
+    <a href="{% url 'dashboard' %}" class="btn btn-secondary">Volver al Dashboard</a>
+</div>
+{% endblock %}

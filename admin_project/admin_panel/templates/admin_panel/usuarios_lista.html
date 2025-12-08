@@ -8,7 +8,7 @@
 <div class="card">
     <div style="display: flex; justify-content: space-between; align-items: center;">
         <h3>Lista de Usuarios</h3>
-        <a href="/admin/auth/user/add/" class="btn">Crear Nuevo Usuario</a>
+        <a href="{% url 'crear_usuario' %}" class="btn">Crear Nuevo Usuario</a>
     </div>
 
     <table class="table">
@@ -28,7 +28,7 @@
                 <td>{{ perfil.usuario.get_full_name|default:perfil.usuario.username }}</td>
                 <td>{{ perfil.run }}</td>
                 <td>{{ perfil.get_rol_display }}</td>
-                <td>{{ perfil.taller|default:"Sin asignar" }}</td>
+                <td>{{ perfil.get_taller_display }}</td>
                 <td>
                     {% if perfil.usuario.is_active %}
                         <span class="badge badge-success">Activo</span>
@@ -37,40 +37,16 @@
                     {% endif %}
                 </td>
                 <td>
-                    <a href="/admin/auth/user/{{ perfil.usuario.id }}/change/" class="btn btn-secondary" style="padding: 5px 10px;">Editar</a>
+                    <a href="{% url 'editar_usuario' perfil.id %}" class="btn btn-secondary" style="padding: 5px 10px;">Editar</a>
+                    <form method="post" action="{% url 'eliminar_usuario' perfil.id %}" style="display: inline;">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger" style="padding: 5px 10px;" onclick="return confirm('¿Está seguro de eliminar este usuario?')">Eliminar</button>
+                    </form>
                 </td>
             </tr>
             {% empty %}
             <tr>
                 <td colspan="6">No hay usuarios registrados</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-</div>
-
-<div class="card">
-    <h3>Talleres Disponibles</h3>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Nombre</th>
-                <th>Ubicación</th>
-                <th>Estado</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for taller in talleres %}
-            <tr>
-                <td>{{ taller.nombre }}</td>
-                <td>{{ taller.ubicacion }}</td>
-                <td>
-                    {% if taller.activo %}
-                        <span class="badge badge-success">Activo</span>
-                    {% else %}
-                        <span class="badge badge-danger">Inactivo</span>
-                    {% endif %}
-                </td>
             </tr>
             {% endfor %}
         </tbody>

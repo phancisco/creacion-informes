@@ -31,7 +31,7 @@
         <div class="alert alert-info" style="flex: 1; margin-right: 20px;">
             Los parámetros opcionales pueden ser activados/desactivados según las necesidades del taller.
         </div>
-        <a href="/admin/admin_panel/parametroopcional/add/" class="btn">Agregar Parámetro</a>
+        <a href="{% url 'crear_parametro_opcional' %}" class="btn">Agregar Parámetro</a>
     </div>
     
     {% for parametro in parametros_opcionales %}
@@ -50,7 +50,11 @@
                 {% else %}
                     <span class="badge badge-warning">Inactivo</span>
                 {% endif %}
-                <a href="/admin/admin_panel/parametroopcional/{{ parametro.id }}/change/" class="btn btn-secondary" style="padding: 5px 10px;">Editar</a>
+                <a href="{% url 'editar_parametro_opcional' parametro.id %}" class="btn btn-secondary" style="padding: 5px 10px;">Editar</a>
+<form method="post" action="{% url 'eliminar_parametro_opcional' parametro.id %}" style="display: inline;">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger" style="padding: 5px 10px;" onclick="return confirm('¿Está seguro de eliminar este parámetro?')">Eliminar</button>
+</form>
             </div>
         </div>
     </div>

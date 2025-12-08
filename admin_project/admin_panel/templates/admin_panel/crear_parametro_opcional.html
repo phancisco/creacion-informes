@@ -1,0 +1,34 @@
+{% extends 'admin_panel/base.html' %}
+
+{% block title %}Crear Parámetro Opcional{% endblock %}
+
+{% block content %}
+<h2>Crear Parámetro Opcional</h2>
+
+<div class="card">
+    <div class="alert alert-info">
+        Los parámetros opcionales se pueden activar o desactivar según las necesidades del taller.
+    </div>
+    
+    <form method="post">
+        {% csrf_token %}
+        
+        <div class="form-group">
+            <label class="form-label">Descripción del Parámetro *</label>
+            <textarea name="descripcion" class="form-control" rows="4" placeholder="Ejemplo: Verificar documentación de garantía" required></textarea>
+        </div>
+        
+        <div class="form-group">
+            <label style="display: flex; align-items: center; gap: 10px;">
+                <input type="checkbox" name="activo" checked>
+                <span>Parámetro Activo</span>
+            </label>
+        </div>
+        
+        <div style="margin-top: 2rem;">
+            <button type="submit" class="btn">Crear Parámetro</button>
+            <a href="{% url 'parametros_configuracion' %}" class="btn btn-secondary">Cancelar</a>
+        </div>
+    </form>
+</div>
+{% endblock %}
