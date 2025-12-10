@@ -4,21 +4,21 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.theme.ParametroActivity"
+    tools:context=".ParametroActivity"
     android:orientation="vertical"
-    android:padding="20dp">
-    <TextView
-        android:id="@+id/TitleApp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Parametros del informe"
-        android:textSize="30sp"
-        android:textColor="@color/black"
-        android:textStyle="bold"
-        android:gravity="center"/>
+    android:padding="40dp">
+        <TextView
+            android:id="@+id/TitleParametro"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Parametros del informe"
+            android:textSize="30sp"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:gravity="center"/>
     <androidx.recyclerview.widget.RecyclerView
         xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/recyclerChecklist"
+        android:id="@+id/recyclerChecklistParametros"
         android:layout_width="match_parent"
         android:layout_height="400dp"/>
 
@@ -31,7 +31,7 @@
         android:overScrollMode="never"/>
 
     <Button
-        android:id="@+id/ButtonLogin"
+        android:id="@+id/ButtonAdjuntarImages"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="#FF0000"
@@ -39,7 +39,7 @@
         android:textColor="@color/white"
         android:layout_marginVertical="20dp"/>
     <Button
-        android:id="@+id/ButtonLogin"
+        android:id="@+id/ButtonNextParametros"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="#FF0000"

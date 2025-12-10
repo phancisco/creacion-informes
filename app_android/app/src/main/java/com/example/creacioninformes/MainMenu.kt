@@ -1,20 +1,32 @@
 package com.example.creacioninformes
 
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import android.content.Intent
+import android.widget.Button
+import android.widget.TextView
 
 class MainMenu : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContentView(R.layout.activity_main_menu)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
+
+        val btnCreate = findViewById<Button>(R.id.CreateReport)
+        val btnHistory = findViewById<Button>(R.id.HistoryReport)
+        val textLogout = findViewById<TextView>(R.id.TextLogout)
+
+        btnCreate.setOnClickListener {
+            startActivity(Intent(this, CreacionInforme1::class.java))
+        }
+
+        btnHistory.setOnClickListener {
+            startActivity(Intent(this, HistoryActivity::class.java))
+        }
+
+        textLogout.setOnClickListener {
+            startActivity(Intent(this, MainActivity::class.java))
+            finish()
         }
     }
 }

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".EliminarInformeConfirmacion"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center">
+        <TextView
+            android:id="@+id/DeleteTitleApp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Eliminar informe"
+            android:textSize="30sp"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:gravity="center"/>
+        <LinearLayout
+            android:layout_gravity="center"
+            android:layout_width="350dp"
+            android:layout_height="200dp"
+            android:background="#d6d6d6"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_margin="100dp">
+            <TextView
+                android:id="@+id/ConfirmationDeletionApp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="¿Está seguro que quiere eliminar el informe? (Se enviara una solicitud de eliminación a un administrador)"
+                android:textSize="20sp"
+                android:textColor="@color/black"
+                android:gravity="center"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:padding="20dp">
+                <Button
+                    android:id="@+id/ButtonConfirmDeleteHistory"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:background="@color/red"
+                    android:text="Confirmar"
+                    android:textColor="@color/white"
+                    android:layout_marginRight="10dp" />
+                <Button
+                    android:id="@+id/ButtonReturnHistory"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:background="#FF0000"
+                    android:text="Cancelar"
+                    android:textColor="@color/white"
+                    android:layout_marginLeft="10dp"/>
+            </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

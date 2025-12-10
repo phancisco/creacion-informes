@@ -29,7 +29,7 @@
         android:gravity="center"
         android:layout_margin="100dp">
         <TextView
-            android:id="@+id/FinishTitleApp"
+            android:id="@+id/FinishConfirmTxtApp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="El informe se ha realizado correctamente "

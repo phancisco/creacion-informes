@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#d6d6d6"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="20dp">
+    <TextView
+        android:id="@+id/InfoHistoryPreview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Texto de ejemplo"
+        android:textSize="20sp"
+        android:textColor="@color/black"
+        android:gravity="center"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:padding="20dp">
+        <Button
+            android:id="@+id/ButtonDeleteHistory"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:background="@color/red"
+            android:text="Eliminar"
+            android:textColor="@color/white"
+            android:layout_marginRight="10dp" />
+        <Button
+            android:id="@+id/ButtonWatchHistory"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:background="#FF0000"
+            android:text="Ver"
+            android:textColor="@color/white"
+            android:layout_marginLeft="10dp"/>
+    </LinearLayout>
+
+
+</LinearLayout>

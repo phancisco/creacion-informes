@@ -5,9 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".MainMenu">
+    tools:context=".MainMenu"
+    android:padding="40dp">
     <TextView
-        android:id="@+id/TextLogin"
+        android:id="@+id/TextLogout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/logout"
@@ -23,7 +24,7 @@
         android:layout_width="match_parent"
         android:layout_height="150dp"
         android:src="@drawable/logo_power"
-        android:layout_marginVertical="20dp"
+        android:layout_marginVertical="50dp"
         android:contentDescription="@string/ContentDescriptionLogo"/>
     <LinearLayout
         android:id="@+id/SectionInputLogin"

@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CreacionInformes">
         <activity
+            android:name=".EliminarInformeConfirmacion"
+            android:exported="false" />
+        <activity
             android:name=".HistoryActivity"
             android:exported="false"
             android:theme="@style/Theme.CreacionInformes" />
@@ -22,7 +25,7 @@
             android:name=".FinishInforme"
             android:exported="false" />
         <activity
-            android:name=".ui.theme.ParametroActivity"
+            android:name=".ParametroActivity"
             android:exported="false" />
         <activity
             android:name=".CreacionInforme1"
