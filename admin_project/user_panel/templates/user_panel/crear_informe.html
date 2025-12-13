@@ -1,0 +1,86 @@
+{% extends "user_panel/base.html" %}
+{% block content %}
+<div class="card">
+<form method="post">
+{% csrf_token %}
+
+<h4>Creación de informe</h4>
+
+<!-- DATOS BASE DEL INFORME -->
+<div class="mb-3">
+    <label class="form-label">OS</label>
+    <input type="text" name="numero_os" class="form-control"
+           placeholder="Ingrese Orden de Servicio" required>
+</div>
+
+<div class="mb-3">
+    <label class="form-label">Marca</label>
+    <input type="text" name="marca" class="form-control"
+           placeholder="Ingrese Marca" required>
+</div>
+
+<div class="mb-3">
+    <label class="form-label">Componente</label>
+    <select name="componente" class="form-select" required>
+        <option value="">Seleccione componente</option>
+        {% for c in componentes %}
+            <option value="{{ c.id }}">{{ c.nombre }}</option>
+        {% endfor %}
+    </select>
+</div>
+
+
+<div class="mb-3">
+    <label class="form-label">Aplicación</label>
+    <input type="text" name="aplicacion" class="form-control"
+           placeholder="Ingrese Aplicación" required>
+</div>
+
+<div class="mb-3">
+    <label class="form-label">Cliente</label>
+    <input type="text" name="cliente" class="form-control"
+           placeholder="Ingrese Cliente" required>
+</div>
+
+<hr>
+
+<!-- PARÁMETROS OBLIGATORIOS -->
+<h5>Parámetros obligatorios</h5>
+
+{% for p in obligatorios %}
+<div class="form-check mb-2">
+    <input class="form-check-input"
+           type="checkbox"
+           name="obl_{{ p.id }}"
+           id="obl{{ p.id }}"
+           required>
+    <label class="form-check-label" for="obl{{ p.id }}">
+        {{ p.numero }}. {{ p.descripcion }}
+    </label>
+</div>
+{% endfor %}
+
+<hr>
+
+<!-- PARÁMETROS OPCIONALES -->
+<h5>Parámetros opcionales</h5>
+
+{% for p in opcionales %}
+<div class="form-check mb-2">
+    <input class="form-check-input"
+           type="checkbox"
+           name="opc_{{ p.id }}"
+           id="opc{{ p.id }}">
+    <label class="form-check-label" for="opc{{ p.id }}">
+        {{ p.descripcion }}
+    </label>
+</div>
+{% endfor %}
+
+<button class="btn btn-success mt-3 w-100">
+    Guardar y marcar como listo
+</button>
+
+</form>
+</div>
+{% endblock %}

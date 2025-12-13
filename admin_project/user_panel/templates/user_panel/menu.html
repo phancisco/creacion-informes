@@ -1,0 +1,15 @@
+{% extends "user_panel/base.html" %}
+{% block title %}Menú{% endblock %}
+
+{% block content %}
+<div class="card text-center">
+  <div style="display:flex; gap:12px; justify-content:center; flex-direction:column; align-items:center; padding: 24px;">
+    <a href="{% url 'crear_informe' %}" class="btn btn-primary btn-wide">Crear Informe</a>
+    <a href="{% url 'historial' %}" class="btn btn-secondary btn-wide">Ver Historial</a>
+    <form action="{% url 'logout' %}" method="post" style="display:block; width:100%; text-align:center;">
+      {% csrf_token %}
+      <button type="submit" class="btn btn-secondary btn-wide">Cerrar Sesión</button>
+    </form>
+  </div>
+</div>
+{% endblock %}

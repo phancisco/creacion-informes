@@ -1,5 +1,14 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.conf import settings
+
+class Componente(models.Model):
+    nombre = models.CharField(max_length=100, unique=True)
+    activo = models.BooleanField(default=True)
+
+    def __str__(self):
+        return self.nombre
+
 
 class Taller(models.Model):
     nombre = models.CharField(max_length=100)
@@ -51,23 +60,32 @@ class ParametroOpcional(models.Model):
         return f"{self.descripcion[:50]}..."
 
 class Informe(models.Model):
-    ESTADOS = [
-        ('borrador', 'Borrador'),
-        ('completado', 'Completado'),
-        ('aprobado', 'Aprobado'),
-        ('rechazado', 'Rechazado'),
-    ]
-    
+
     numero_os = models.CharField(max_length=50)
     marca = models.CharField(max_length=100)
-    componente = models.CharField(max_length=100)
+    componente = models.ForeignKey(
+    Componente,
+    on_delete=models.PROTECT
+    )
     cliente = models.CharField(max_length=200)
     aplicacion = models.CharField(max_length=100)
-    inspector = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    autor = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name="informes_creados"
+    )
+
+    inspector = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name="informes_inspeccionados",
+        null=True,
+        blank=True
+    )
+
     fecha_creacion = models.DateTimeField(auto_now_add=True)
-    fecha_liberacion = models.DateTimeField(null=True, blank=True)
-    estado = models.CharField(max_length=20, choices=ESTADOS, default='borrador')
-    
+
     def __str__(self):
         return f"Informe {self.numero_os} - {self.cliente}"
 
@@ -93,6 +111,33 @@ class SolicitudCambio(models.Model):
     aprobado_por = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, related_name='solicitudes_aprobadas')
     fecha_respuesta = models.DateTimeField(null=True, blank=True)
     comentarios_admin = models.TextField(blank=True)
+    informe = models.ForeignKey(
+        Informe,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name='solicitudes'
+    )
+    propuesta_campos = models.JSONField(null=True, blank=True)
     
     def __str__(self):
         return f"{self.get_tipo_display()} - {self.usuario_solicitante.username}"
+
+class RespuestaParametro(models.Model):
+    informe = models.ForeignKey(Informe, on_delete=models.CASCADE, related_name='respuestas')
+    
+    parametro_obligatorio = models.ForeignKey(
+        ParametroObligatorio,
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True
+    )
+    
+    parametro_opcional = models.ForeignKey(
+        ParametroOpcional,
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True
+    )
+    
+    aprobado = models.BooleanField(default=False)

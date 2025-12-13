@@ -7,25 +7,7 @@ from django.utils import timezone
 from .models import *
 
 # Lista de los 16 parámetros obligatorios hardcodeados
-PARAMETROS_OBLIGATORIOS = [
-    "Verificar que todas las zonas de acople se encuentren libres de pintura",
-    "Verificar el estado de todos los hilos",
-    "Verificar la correcta instalación y conexión de los sensores",
-    "Verificar la correcta instalación del arnés",
-    "Verificar la aplicación de anti-sabotaje en toda la periferia externa",
-    "Verificar instalación de tapones plásticos en agujeros con hilos",
-    "Verificar que todos los tapones estén pintados de color rojo",
-    "Verificar que el estado de la pintura del componente sea óptimo",
-    "Verificar la instalación de placa y OS",
-    "Verificar la instalación de todos los accesorios (Si aplica)",
-    "Verificar la instalación de todas las tapas de traslado",
-    "Verificar la aplicación de grasa antioxidante en zonas no pintadas",
-    "Verificar que todos los hilos de izaje se encuentren en condiciones óptimas de uso",
-    "Verificar que la base de traslado se encuentre en buenas condiciones",
-    "Revisar instalación, posición y orientación de mirilla de nivel de aceite",
-    "Verificar que proceso de pre-embalaje y componente embalado sea óptimo"
-]
-
+parametros_obligatorios = ParametroObligatorio.objects.filter(activo=True)
 
 def dashboard(request):
     # Estadísticas básicas - solo usuarios con perfil (creados desde la app)
@@ -53,7 +35,7 @@ def usuarios_lista(request):
 def parametros_configuracion(request):
     # Crear lista de parámetros obligatorios con números
     parametros_obligatorios_lista = []
-    for i, descripcion in enumerate(PARAMETROS_OBLIGATORIOS, 1):
+    for i, descripcion in enumerate(parametros_obligatorios, 1):
         parametros_obligatorios_lista.append({
             'numero': i,
             'descripcion': descripcion,
@@ -69,6 +51,11 @@ def parametros_configuracion(request):
     return render(request, 'admin_panel/parametros_configuracion.html', context)
 
 def solicitudes_cambio(request):
+    # Only admin users should access this
+    if not (request.user.is_superuser or getattr(getattr(request.user, 'perfilusuario', None), 'rol', None) == 'admin'):
+        messages.error(request, 'Acceso denegado')
+        return redirect('dashboard')
+
     solicitudes = SolicitudCambio.objects.filter(estado='pendiente').order_by('-fecha_solicitud')
     
     context = {
@@ -78,6 +65,9 @@ def solicitudes_cambio(request):
 
 def aprobar_solicitud(request, solicitud_id):
     solicitud = get_object_or_404(SolicitudCambio, id=solicitud_id)
+    if not (request.user.is_superuser or getattr(getattr(request.user, 'perfilusuario', None), 'rol', None) == 'admin'):
+        messages.error(request, 'Acción no permitida')
+        return redirect('solicitudes_cambio')
     
     if request.method == 'POST':
         accion = request.POST.get('accion')
@@ -85,7 +75,69 @@ def aprobar_solicitud(request, solicitud_id):
         
         if accion == 'aprobar':
             solicitud.estado = 'aprobada'
-            messages.success(request, 'Solicitud aprobada exitosamente')
+            # Si la solicitud es de eliminación, eliminar el informe asociado
+            if solicitud.tipo == 'eliminacion' and solicitud.informe:
+                informe = solicitud.informe
+                informe_num = informe.numero_os
+                informe.delete()
+                solicitud.informe = None
+                messages.success(request, f'Informe {informe_num} eliminado y solicitud aprobada')
+            # Si la solicitud es de edición, aplicar cambios propuestos
+            elif solicitud.tipo == 'parametro' and solicitud.informe and solicitud.propuesta_campos:
+                informe = solicitud.informe
+                data = solicitud.propuesta_campos
+                if 'marca' in data:
+                    informe.marca = data['marca']
+                if 'cliente' in data:
+                    informe.cliente = data['cliente']
+                if 'aplicacion' in data:
+                    informe.aplicacion = data['aplicacion']
+                if 'componente_id' in data:
+                    from .models import Componente as Comp
+                    try:
+                        comp = Comp.objects.get(id=data['componente_id'])
+                        informe.componente = comp
+                    except Comp.DoesNotExist:
+                        pass
+                # Apply parameter response changes if present
+                if 'respuestas' in data:
+                    respuestas = data['respuestas']
+                    # Obligatorios
+                    for pid_str, aprobado in respuestas.get('obligatorios', {}).items():
+                        try:
+                            pid = int(pid_str)
+                            p = ParametroObligatorio.objects.get(id=pid)
+                            rp, created = RespuestaParametro.objects.get_or_create(
+                                informe=informe,
+                                parametro_obligatorio=p,
+                                defaults={'aprobado': bool(aprobado)}
+                            )
+                            if not created:
+                                rp.aprobado = bool(aprobado)
+                                rp.save()
+                        except ParametroObligatorio.DoesNotExist:
+                            continue
+
+                    # Opcionales
+                    for pid_str, aprobado in respuestas.get('opcionales', {}).items():
+                        try:
+                            pid = int(pid_str)
+                            p = ParametroOpcional.objects.get(id=pid)
+                            rp, created = RespuestaParametro.objects.get_or_create(
+                                informe=informe,
+                                parametro_opcional=p,
+                                defaults={'aprobado': bool(aprobado)}
+                            )
+                            if not created:
+                                rp.aprobado = bool(aprobado)
+                                rp.save()
+                        except ParametroOpcional.DoesNotExist:
+                            continue
+
+                informe.save()
+                messages.success(request, 'Solicitud aprobada y cambios aplicados al informe')
+            else:
+                messages.success(request, 'Solicitud aprobada exitosamente')
         elif accion == 'rechazar':
             solicitud.estado = 'rechazada'
             messages.success(request, 'Solicitud rechazada')

@@ -15,7 +15,9 @@
                     <th>Usuario</th>
                     <th>Tipo</th>
                     <th>Descripción</th>
+                    <th>Informe</th>
                     <th>Fecha</th>
+                    <th>Propuesta</th>
                     <th>Estado</th>
                     <th>Acciones</th>
                 </tr>
@@ -26,7 +28,15 @@
                     <td>{{ solicitud.usuario_solicitante.get_full_name|default:solicitud.usuario_solicitante.username }}</td>
                     <td>{{ solicitud.get_tipo_display }}</td>
                     <td>{{ solicitud.descripcion|truncatechars:100 }}</td>
+                    <td>{% if solicitud.informe %}{{ solicitud.informe.numero_os }}{% else %}N/A{% endif %}</td>
                     <td>{{ solicitud.fecha_solicitud|date:"d/m/Y H:i" }}</td>
+                    <td>
+                        {% if solicitud.propuesta_campos %}
+                            <pre style="max-width: 300px; white-space: pre-wrap;">{{ solicitud.propuesta_campos|safe|truncatechars:150 }}</pre>
+                        {% else %}
+                            -
+                        {% endif %}
+                    </td>
                     <td><span class="badge badge-warning">{{ solicitud.get_estado_display }}</span></td>
                     <td>
                         <form method="post" action="{% url 'aprobar_solicitud' solicitud.id %}" style="display: inline;">

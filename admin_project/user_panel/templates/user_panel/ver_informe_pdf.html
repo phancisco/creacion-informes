@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Informe {{ informe.numero_os }}</title>
+  <style>
+    body { font-family: Arial, sans-serif; }
+    .header { text-align: center; margin-bottom: 1rem; }
+    .section { margin-bottom: 0.5rem; }
+    .param-row { border-bottom: 1px solid #ddd; padding: 4px 0; }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>Informe OS {{ informe.numero_os }}</h1>
+    <p>{{ informe.cliente }} - {{ informe.marca }} - {{ informe.componente }}</p>
+    <p>Fecha: {{ informe.fecha_creacion|date:"d/m/Y" }}</p>
+  </div>
+
+  <div class="section">
+    <h3>Detalles</h3>
+    <p><strong>Aplicación:</strong> {{ informe.aplicacion }}</p>
+    <p><strong>Inspector:</strong> {{ informe.inspector.get_full_name|default:informe.inspector.username }}</p>
+  </div>
+
+  <div class="section">
+    <h3>Parámetros Evaluados</h3>
+    {% for r in informe.respuestas.all %}
+      <div class="param-row">
+        {% if r.parametro_obligatorio %}
+          {{ r.parametro_obligatorio.numero }}. {{ r.parametro_obligatorio.descripcion }}
+        {% else %}
+          {{ r.parametro_opcional.descripcion }}
+        {% endif %}
+        - {% if r.aprobado %}OK{% else %}NO{% endif %}
+      </div>
+    {% empty %}
+      <p>No hay parámetros registrados.</p>
+    {% endfor %}
+  </div>
+
+</body>
+</html>

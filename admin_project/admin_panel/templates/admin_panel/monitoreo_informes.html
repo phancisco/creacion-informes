@@ -18,7 +18,6 @@
                     <th>OS</th>
                     <th>Cliente</th>
                     <th>Inspector</th>
-                    <th>Estado</th>
                     <th>Fecha Creación</th>
                     <th>Tiempo Transcurrido</th>
                     <th>Acciones</th>
@@ -30,15 +29,7 @@
                     <td>{{ informe.numero_os }}</td>
                     <td>{{ informe.cliente }}</td>
                     <td>{{ informe.inspector.get_full_name|default:informe.inspector.username }}</td>
-                    <td>
-                        {% if informe.estado == 'completado' %}
-                            <span class="badge badge-success">{{ informe.get_estado_display }}</span>
-                        {% elif informe.estado == 'borrador' %}
-                            <span class="badge badge-warning">{{ informe.get_estado_display }}</span>
-                        {% else %}
-                            <span class="badge badge-danger">{{ informe.get_estado_display }}</span>
-                        {% endif %}
-                    </td>
+                    
                     <td>{{ informe.fecha_creacion|date:"d/m/Y H:i" }}</td>
                     <td>{{ informe.fecha_creacion|timesince }}</td>
                     <td>

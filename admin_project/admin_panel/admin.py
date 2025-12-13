@@ -34,12 +34,18 @@ class ParametroOpcionalAdmin(admin.ModelAdmin):
 
 @admin.register(Informe)
 class InformeAdmin(admin.ModelAdmin):
-    list_display = ['numero_os', 'cliente', 'inspector', 'estado', 'fecha_creacion']
-    list_filter = ['estado', 'fecha_creacion', 'inspector']
+    list_display = ['numero_os', 'cliente', 'inspector', 'fecha_creacion']
+    list_filter = ['fecha_creacion', 'inspector']
     search_fields = ['numero_os', 'cliente', 'marca', 'componente']
 
 @admin.register(SolicitudCambio)
 class SolicitudCambioAdmin(admin.ModelAdmin):
-    list_display = ['tipo', 'usuario_solicitante', 'estado', 'fecha_solicitud']
+    list_display = ['tipo', 'usuario_solicitante', 'informe', 'propuesta_campos', 'estado', 'fecha_solicitud']
     list_filter = ['tipo', 'estado', 'fecha_solicitud']
     search_fields = ['descripcion', 'usuario_solicitante__username']
+
+@admin.register(Componente)
+class ComponenteAdmin(admin.ModelAdmin):
+    list_display = ['nombre', 'activo']
+    list_filter = ['activo']
+    search_fields = ['nombre']

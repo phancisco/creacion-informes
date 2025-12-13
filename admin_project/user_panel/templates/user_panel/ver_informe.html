@@ -1,0 +1,58 @@
+{% extends "user_panel/base.html" %}
+
+{% block title %}Ver Informe{% endblock %}
+
+{% block content %}
+<div class="card">
+<h4>Informe OS {{ informe.numero_os }}</h4>
+
+<p><strong>Cliente:</strong> {{ informe.cliente }}</p>
+<p><strong>Marca:</strong> {{ informe.marca }}</p>
+<p><strong>Componente:</strong> {{ informe.componente }}</p>
+<p><strong>Aplicación:</strong> {{ informe.aplicacion }}</p>
+<p><strong>Fecha:</strong> {{ informe.fecha_creacion|date:"d/m/Y" }}</p>
+
+<hr>
+
+<h5>Parámetros evaluados</h5>
+
+{% for r in informe.respuestas.all %}
+<div class="d-flex justify-content-between border-bottom py-1">
+  <span>
+    {% if r.parametro_obligatorio %}
+      {{ r.parametro_obligatorio.numero }}.
+      {{ r.parametro_obligatorio.descripcion }}
+    {% else %}
+      {{ r.parametro_opcional.descripcion }}
+    {% endif %}
+  </span>
+
+    <span>
+    {% if r.aprobado %}
+      <span class="badge badge-success">✔</span>
+    {% else %}
+      <span class="badge badge-danger">✘</span>
+    {% endif %}
+  </span>
+</div>
+{% empty %}
+<p>No hay parámetros registrados.</p>
+{% endfor %}
+
+<hr>
+
+<div class="mt-3 d-flex gap-2 flex-wrap">
+  <a href="{% url 'solicitar_edicion' informe.id %}" class="btn btn-warning">
+    Solicitar edición
+  </a>
+
+  <a href="{% url 'ver_informe_pdf' informe.id %}" class="btn btn-outline-primary">
+    Exportar PDF
+  </a>
+
+  <a href="{% url 'historial' %}" class="btn btn-secondary">
+    Volver
+  </a>
+</div>
+</div>
+{% endblock %}

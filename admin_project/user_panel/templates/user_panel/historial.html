@@ -1,0 +1,29 @@
+{% extends "user_panel/base.html" %}
+{% block content %}
+
+<h4>Historial de informes</h4>
+
+{% for informe in informes %}
+<div class="card mb-3 p-3">
+    <p><strong>OS:</strong> {{ informe.numero_os }}</p>
+    <p><strong>Cliente:</strong> {{ informe.cliente }}</p>
+    <p><strong>Fecha:</strong> {{ informe.fecha_creacion|date:"d/m/Y" }}</p>
+
+    <div class="d-flex justify-content-between">
+        <a href="{% url 'solicitar_eliminacion' informe.id %}"
+           class="btn btn-danger">
+            Eliminar
+        </a>
+
+        <a href="{% url 'ver_informe' informe.id %}"
+           class="btn btn-primary">
+            Ver
+        </a>
+    </div>
+</div>
+{% empty %}
+<p>No tienes informes creados.</p>
+{% endfor %}
+
+{% endblock %}
+

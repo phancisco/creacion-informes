@@ -1,0 +1,70 @@
+{% extends "user_panel/base.html" %}
+{% block title %}Solicitar edición{% endblock %}
+
+{% block content %}
+<div class="card">
+<h4>Solicitar edición - Informe OS {{ informe.numero_os }}</h4>
+
+<form method="post">
+  {% csrf_token %}
+
+  <div class="mb-3">
+    <label class="form-label">Marca</label>
+    <input class="form-control" name="marca" value="{{ informe.marca }}">
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label">Cliente</label>
+    <input class="form-control" name="cliente" value="{{ informe.cliente }}">
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label">Aplicación</label>
+    <input class="form-control" name="aplicacion" value="{{ informe.aplicacion }}">
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label">Componente</label>
+    <select name="componente" class="form-select">
+      {% for c in componentes %}
+        <option value="{{ c.id }}" {% if informe.componente.id == c.id %}selected{% endif %}>{{ c.nombre }}</option>
+      {% endfor %}
+    </select>
+  </div>
+
+  <hr>
+  <h5>Parámetros (proponer cambios)</h5>
+  <p class="text-muted">Marca o desmarca para cambiar la aprobación del parámetro.</p>
+
+  <div>
+    <h6>Parámetros obligatorios</h6>
+    {% for p in obligatorios %}
+    <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" name="obl_{{ p.id }}" id="obl{{ p.id }}"
+              {% if p.id in respuestas_obl_ids %}checked{% endif %}>
+      <label class="form-check-label" for="obl{{ p.id }}">{{ p.numero }}. {{ p.descripcion }}</label>
+    </div>
+    {% endfor %}
+  </div>
+
+  <div class="mt-3">
+    <h6>Parámetros opcionales</h6>
+    {% for p in opcionales %}
+    <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" name="opc_{{ p.id }}" id="opc{{ p.id }}"
+              {% if p.id in respuestas_opc_ids %}checked{% endif %}>
+      <label class="form-check-label" for="opc{{ p.id }}">{{ p.descripcion }}</label>
+    </div>
+    {% endfor %}
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label">Justificación</label>
+    <textarea class="form-control" name="justificacion" required></textarea>
+  </div>
+
+  <button class="btn btn-primary">Enviar Solicitud de Edición</button>
+  </form>
+</div>
+{% endblock %}
+
